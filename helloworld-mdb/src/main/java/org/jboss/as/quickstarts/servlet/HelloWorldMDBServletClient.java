@@ -25,8 +25,20 @@ import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;
+import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueReceiver;
+import javax.jms.QueueSender;
+import javax.jms.QueueSession;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.jms.Topic;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,7 +80,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
     private static final long serialVersionUID = -8314035702649252239L;
 
-    private static final int MSG_COUNT = 5;
+    private static final int MSG_COUNT = 1;
 
     @Inject
     private JMSContext context;
@@ -96,6 +108,41 @@ public class HelloWorldMDBServletClient extends HttpServlet {
                 out.write("Message (" + i + "): " + text + "</br>");
             }
             out.write("<p><i>Go to your WildFly Server console or Server log to see the result of messages processing</i></p>");
+
+/*
+            try {
+                Context namingContext = new InitialContext();
+
+                Queue queue = (Queue) namingContext.lookup("java:jboss/exported/jms/queue/test");
+
+                QueueConnectionFactory connectionFactory = (QueueConnectionFactory) namingContext.lookup("java:/ConnectionFactory");
+                QueueConnection connection = connectionFactory.createQueueConnection();
+                QueueSession session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+                QueueSender sender = session.createSender(queue);
+                QueueReceiver receiver = session.createReceiver(queue);
+                TextMessage textMessage = session.createTextMessage("test message");
+
+                connection.start(); // !
+
+                sender.send(textMessage);
+                Message receivedMessage = receiver.receive(500);
+                if (receivedMessage != null) {
+                    out.write(receivedMessage.toString());
+                } else {
+                    out.print("no message");
+                }
+
+                sender.close();
+                receiver.close();
+                session.close();
+                connection.close();
+            } catch (NamingException e) {
+                e.printStackTrace();
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+*/
+
         } finally {
             if (out != null) {
                 out.close();
