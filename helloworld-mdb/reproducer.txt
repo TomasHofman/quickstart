@@ -1,0 +1,6 @@
+1) copy activemq-rar.rar to deployment folder
+2) configure standalone-full.xml
+3) run server
+4) deploy the quickstart
+5) visit http://localhost:8080/wildfly-helloworld-mdb/HelloWorldMDBServletClient
+6) warnings should appear in stdout
