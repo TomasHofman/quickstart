@@ -22,9 +22,9 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <set-user-name name="quickstartUser"/>
+                <set-user-name name="admin"/>
                 <credentials>
-                    <clear-password password="quickstartPwd1!"/>
+                    <clear-password password="secret"/>
                 </credentials>
                 <sasl-mechanism-selector selector="PLAIN"/>
                 <providers>

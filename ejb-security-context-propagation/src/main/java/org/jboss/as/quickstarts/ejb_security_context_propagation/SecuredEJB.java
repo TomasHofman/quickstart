@@ -32,7 +32,7 @@ import org.jboss.ejb3.annotation.SecurityDomain;
  */
 @Stateless
 @Remote(SecuredEJBRemote.class)
-@SecurityDomain("quickstart-domain")
+@SecurityDomain("other")
 public class SecuredEJB implements SecuredEJBRemote {
 
     @Resource

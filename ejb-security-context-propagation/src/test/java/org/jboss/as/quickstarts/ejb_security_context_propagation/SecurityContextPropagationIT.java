@@ -43,7 +43,7 @@ public class SecurityContextPropagationIT {
         invokeIntermediateBean(standardDist);
         // now lets programmatically setup an authentication context to switch users before invoking the intermediate bean
         AuthenticationConfiguration superUser = AuthenticationConfiguration.empty().setSaslMechanismSelector(SaslMechanismSelector.NONE.addMechanism("PLAIN")).
-                useName("quickstartAdmin").usePassword("adminPwd1!");
+                useName("admin").usePassword("secret");
         final AuthenticationContext authCtx = AuthenticationContext.empty().with(MatchRule.ALL, superUser);
         AuthenticationContext.getContextManager().setThreadDefault(authCtx);
         invokeIntermediateBean(standardDist);
